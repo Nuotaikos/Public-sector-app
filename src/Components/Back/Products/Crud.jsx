@@ -1,6 +1,11 @@
+import Nav from "../Nav";
+
 function Crud() {
   return (
-    <h1>Products</h1>
+    <>
+      <Nav></Nav>
+      <h1>Products</h1>
+    </>
   );
 }
 
