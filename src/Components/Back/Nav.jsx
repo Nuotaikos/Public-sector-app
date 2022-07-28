@@ -18,13 +18,13 @@ function Nav() {
                   isActive ? {
                     color: 'crimson'
                   } : null
-              }>Categories</NavLink>
-              <NavLink to="/admin/movies" className="nav-link" style={
+              }>Municipalities</NavLink>
+              <NavLink to="/admin/products" className="nav-link" style={
                 ({ isActive }) =>
                   isActive ? {
                     color: 'crimson'
                   } : null
-              }>Movies</NavLink>
+              }>Products</NavLink>
             </nav>
           </div>
         </div>

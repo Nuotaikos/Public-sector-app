@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import BackContext from './BackContext';
 import CatsCrud from './Cats/Crud';
 import Nav from './Nav';
 import ProductsCrud from './Products/Crud';
@@ -6,23 +9,44 @@ import ProductsCrud from './Products/Crud';
 
 function Back({ show }) {
 
-  if (show === 'admin') {
-    return (
-      <>
-        <Nav></Nav>
-        <h1>BACK</h1>
-      </>
-    )
+  const [lastUpdate, setLastUpdate] = useState(Date.now());
+
+  const [createCat, setCreateCat] = useState(null);
+
+  // Create
+  useEffect(() => {
+    if (null === createCat) return;
+    axios.post('http://localhost:3003/admin/cats', createCat)
+      .then(res => {
+        showMessage(res.data.msg);
+        setLastUpdate(Date.now());
+      })
+      .catch(error => {
+        showMessage({ text: error.message, type: 'danger' });
+      })
+  }, [createCat]);
+
+  const showMessage = () => {
+
   }
-  if (show === 'cats') {
-    return (
-      <CatsCrud />
-    )
-  }
-  if (show === 'products') {
-    return (
-      <ProductsCrud />
-    )
-  }
+
+  return (
+    <BackContext.Provider value={{
+      // setCreateCat,
+      // cats
+    }}>
+      {
+        show === 'admin' ?
+          <>
+            <Nav />
+            <h1>BACK</h1>
+          </>
+          : show === 'cats' ? <CatsCrud /> :
+            show === 'products' ? <ProductsCrud /> : null
+      }
+    </BackContext.Provider>
+  )
 }
+
 export default Back;
+
