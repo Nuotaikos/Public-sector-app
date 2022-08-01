@@ -19,12 +19,21 @@ function Create() {
       })
   }
 
+  // const handleCreate = () => {
+  //   const data = { title };
+  //   setCreateCat(data);
+  //   setTitle('');
+  // }
   const handleCreate = () => {
-    const data = { title };
+    const data = {
+      title,
+      photo: photoPrint
+    };
     setCreateCat(data);
-    setTitle('');
-  }
+    setTitle("");
+    setPhotoPrint(null);
 
+  };
 
   return (
     <div className="card mt-4">
