@@ -4,12 +4,13 @@ import BackContext from './BackContext';
 import CatsCrud from './Cats/Crud';
 import Nav from './Nav';
 import ProductsCrud from './Products/Crud';
-
+import { v4 as uuidv4 } from 'uuid';
 
 
 function Back({ show }) {
 
   const [lastUpdate, setLastUpdate] = useState(Date.now());
+  const [messages, setMessages] = useState([]);
 
   const [cats, setCats] = useState(null);
 
@@ -49,15 +50,22 @@ function Back({ show }) {
   }, [deleteCat]);
 
 
-  const showMessage = () => {
-
+  const showMessage = (m) => {
+    const id = uuidv4();
+    m.id = id;
+    setMessages(msg => [...msg, m]);
+    setTimeout(() => {
+      setMessages(mes => mes.filter(ms => ms.id !== id))
+    }, 5000);
   }
+
 
   return (
     <BackContext.Provider value={{
       setCreateCat,
       cats,
-      setDeleteCat
+      setDeleteCat,
+      messages
     }}>
       {
         show === 'admin' ?
