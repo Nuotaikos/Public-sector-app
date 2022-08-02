@@ -21,21 +21,27 @@ function Back({ show }) {
 
   const [products, setProducts] = useState(null);
   const [createProduct, setCreateProduct] = useState(null);
+  const [deleteProduct, setDeleteProduct] = useState(null);
 
 
 
-  // Read
+  // Read cat
+
   useEffect(() => {
     axios.get('http://localhost:3003/admin/cats')
       .then(res => setCats(res.data));
   }, [lastUpdate]);
-  // Read products (nuskaitysime sectorius)
+
+  // Read products 
+  //(nuskaitysime sectorius)
+
   useEffect(() => {
     axios.get('http://localhost:3003/admin/products')
       .then(res => setProducts(res.data));
   }, [lastUpdate]);
 
-  // Create
+  // Create cat
+
   useEffect(() => {
     if (null === createCat) return;
     axios.post('http://localhost:3003/admin/cats', createCat)
@@ -49,6 +55,7 @@ function Back({ show }) {
   }, [createCat]);
 
   // Create Sector
+
   useEffect(() => {
     if (null === createProduct) return;
     axios.post('http://localhost:3003/admin/products', createProduct)
@@ -61,7 +68,7 @@ function Back({ show }) {
       })
   }, [createProduct]);
 
-  // Delete
+  // Delete cat
   useEffect(() => {
     if (null === deleteCat) return;
     axios.delete('http://localhost:3003/admin/cats/' + deleteCat.id)
@@ -73,6 +80,21 @@ function Back({ show }) {
         showMessage({ text: error.message, type: 'danger' });
       })
   }, [deleteCat]);
+
+  // Delete sectors
+  // trinam pagal product id
+
+  useEffect(() => {
+    if (null === deleteProduct) return;
+    axios.delete('http://localhost:3003/admin/products/' + deleteProduct.id)
+      .then(res => {
+        showMessage(res.data.msg);
+        setLastUpdate(Date.now());
+      })
+      .catch(error => {
+        showMessage({ text: error.message, type: 'danger' });
+      })
+  }, [deleteProduct]);
 
   // Edit info 
   useEffect(() => {
@@ -110,7 +132,8 @@ function Back({ show }) {
       setModalCat,
       modalCat,  /* atvaizduos modala */
       setCreateProduct,
-      products
+      products,
+      setDeleteProduct
     }}>
       {
         show === 'admin' ?

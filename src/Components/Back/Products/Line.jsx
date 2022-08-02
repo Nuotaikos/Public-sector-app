@@ -3,10 +3,10 @@ import BackContext from '../BackContext';
 
 function Line({ line }) {       //Paimam line ir returne is line atspausdinam title, price ir t.t.
 
-  const { a } = useContext(BackContext);
+  const { setDeleteProduct } = useContext(BackContext);
 
-  const handleDelete = () => {
-    // setDeleteCat(line);
+  const handleDelete = () => {  /* veiks paspaudus mygtuka po irasymo i serveri */
+    setDeleteProduct(line);
   }
 
   const handleEdit = () => {
@@ -16,14 +16,14 @@ function Line({ line }) {       //Paimam line ir returne is line atspausdinam ti
   return (
     <li className="list-group-item">
       <div className="item">
-        <div className="content">
-          <b>{line.title}</b>
-          <b>{line.municipalities}</b>
-        </div>
         <div className="cat">
           {
             line.photo ? <div className="photo-bin"><img src={line.photo} alt={line.title} /></div> : null
           }
+        </div>
+        <div className="content">
+          <b>{line.title}</b>
+          <b>{line.municipalities}</b>
         </div>
         <div className="buttons">
           <button type="button" className="btn btn-outline-success ml-2" onClick={handleEdit}>Edit</button>
