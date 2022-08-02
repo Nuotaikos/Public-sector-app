@@ -19,11 +19,6 @@ function Create() {
       })
   }
 
-  // const handleCreate = () => {
-  //   const data = { title };
-  //   setCreateCat(data);
-  //   setTitle('');
-  // }
   const handleCreate = () => {
     const data = {
       title,

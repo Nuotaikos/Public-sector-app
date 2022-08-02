@@ -97,13 +97,30 @@ body {
 }
 
 .show-message {
-  display: flex;
-  position: fixed;
-  bottom: 50px;
-  right: 50px;
-  width: 100%;
-  justify-content: flex-end;
+    display: flex;
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+    width: 100%;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 3;
+    .alert-danger {
+        background-color: #9e3dcf44;
+    }
+    .alert-info {
+        background-color: #35A4D844;
+    }
+    .alert-success {
+        background-color: #b1b3b263;
+    }
+    div {
+        width: 50%;
+        margin-right: 30px;
+    }
 }
+
 
 button.with-loader {
   .spinner-border {

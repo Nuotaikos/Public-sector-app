@@ -16,6 +16,9 @@ function Back({ show }) {
 
   const [createCat, setCreateCat] = useState(null);
   const [deleteCat, setDeleteCat] = useState(null);
+  const [editCat, setEditCat] = useState(null);
+  const [modalCat, setModalCat] = useState(null);
+
 
   // Read
   useEffect(() => {
@@ -49,6 +52,20 @@ function Back({ show }) {
       })
   }, [deleteCat]);
 
+  // Edit info 
+  useEffect(() => {
+    if (null === editCat) return;   /* editCat – is virsau. Tai viena kategorija, kurioje yra id ir title */
+
+    axios.put('http://localhost:3003/admin/cats/' + editCat.id, editCat) /* editCat – perdavinesim title */
+      .then(res => {
+        showMessage(res.data.msg);
+        setLastUpdate(Date.now());
+      })
+      .catch(error => {
+        showMessage({ text: error.message, type: 'danger' });
+      })
+  }, [editCat]);
+
 
   const showMessage = (m) => {
     const id = uuidv4();
@@ -60,12 +77,17 @@ function Back({ show }) {
   }
 
 
+
   return (
     <BackContext.Provider value={{
       setCreateCat,
       cats,
       setDeleteCat,
-      messages
+      messages,
+      setEditCat,
+      setModalCat,
+      modalCat  /* atvaizduos modala */
+
     }}>
       {
         show === 'admin' ?
