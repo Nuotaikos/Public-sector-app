@@ -25,7 +25,7 @@ function Nav() {
                   isActive ? {
                     color: 'crimson'
                   } : null
-              }>Products</NavLink>
+              }>Sectors</NavLink>
             </nav>
           </div>
         </div>
