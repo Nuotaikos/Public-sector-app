@@ -19,13 +19,20 @@ function Back({ show }) {
   const [editCat, setEditCat] = useState(null);
   const [modalCat, setModalCat] = useState(null);
 
+  const [products, setProducts] = useState(null);
   const [createProduct, setCreateProduct] = useState(null);
+
 
 
   // Read
   useEffect(() => {
     axios.get('http://localhost:3003/admin/cats')
       .then(res => setCats(res.data));
+  }, [lastUpdate]);
+  // Read products (nuskaitysime sectorius)
+  useEffect(() => {
+    axios.get('http://localhost:3003/admin/products')
+      .then(res => setProducts(res.data));
   }, [lastUpdate]);
 
   // Create
@@ -102,7 +109,8 @@ function Back({ show }) {
       setEditCat,
       setModalCat,
       modalCat,  /* atvaizduos modala */
-      setCreateProduct
+      setCreateProduct,
+      products
     }}>
       {
         show === 'admin' ?

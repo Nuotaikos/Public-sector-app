@@ -4,18 +4,19 @@ import BackContext from '../BackContext';
 
 function List() {
 
-  const { cats } = useContext(BackContext);
+  const { products } = useContext(BackContext);
+  //Sectorius paimam is serverio ir atiduodam i konteksta. Sectors (products) is BackContext. 
 
   return (
     <div className="card mt-4">
       <div className="card-header">
-        <h2>List of Municipalities</h2>
+        <h2>List of Sectors</h2>
       </div>
       <div className="card-body">
         <ul className="list-group">
           {
-            cats ? cats.map(cat => <Line key={cat.id} line={cat}></Line>) : null
-            /*Liste paimam cats ir ismepinam I line paduodami cats*/
+            products ? products.map(p => <Line key={p.id} line={p}></Line>) : null
+            /*Liste paimam products ir ismepinam I line paduodami products*/
           }
         </ul>
       </div>
