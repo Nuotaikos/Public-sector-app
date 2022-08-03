@@ -1,4 +1,16 @@
+import { useContext, useState } from "react";
+import FrontContext from "./FrontContext";
+
 function Line({ line }) {
+
+  const { setAddCom } = useContext(FrontContext);
+
+  const [com, setCom] = useState('');
+
+  const addComment = () => {
+    setAddCom({ product_id: line.id, com });
+    setCom('');
+  }
 
   return (
 
@@ -13,11 +25,16 @@ function Line({ line }) {
           <b>{line.title}</b>
           <div className="cat">{line.cat}</div>
           <b>{line.municipalities}</b>
-
-
+        </div>
+        <div className="comments">
+          <h5>Comments</h5>
+          <div className="form-group">
+            <textarea className="form-control" rows="3" value={com} onChange={e => setCom(e.target.value)}></textarea>
+          </div>
+          <button type="button" className="btn btn-outline-primary" onClick={addComment}>Add comment</button>
         </div>
       </div>
-    </li>
+    </li >
   );
 }
 
