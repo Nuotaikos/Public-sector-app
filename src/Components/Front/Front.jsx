@@ -13,10 +13,37 @@ function Front() {
   const [lastUpdate, setLastUpdate] = useState(Date.now());
 
 
-  // Read municipalities. Paima produktus is const
+  // Read products. Paima produktus is const
   useEffect(() => {
     axios.get('http://localhost:3003/products')
-      .then(res => setProducts(res.data));
+      .then(res => {
+        const products = new Map();
+        res.data.forEach(p => {
+          let comment;
+          if (null === p.com) {
+            comment = null;
+          } else {
+            comment = { id: p.com_id, com: p.com };
+          }
+          if (products.has(p.id)) {
+            const pr = products.get(p.id);
+            if (comment) {
+              pr.com.push(comment);
+            }
+          } else {
+            products.set(p.id, { ...p });
+            const pr = products.get(p.id);
+            pr.com = [];
+            delete pr.com_id;
+            if (comment) {
+              pr.com.push(comment);
+            }
+          }
+        });
+        console.log([...products].map(e => e[1]));
+        setProducts([...products].map(e => e[1]).map((p, i) => ({ ...p, row: i })));
+      })
+
   }, [lastUpdate]);
 
   // Komentarai
