@@ -19,6 +19,7 @@ function App() {
         <Route path="/admin" element={<Back show="admin" />} />
         <Route path="/admin/cats" element={<Back show="cats" />} />
         <Route path="/admin/products" element={<Back show="products" />} />
+        <Route path="/admin/comments" element={<Back show="com" />} />
       </Routes>
 
     </BrowserRouter>

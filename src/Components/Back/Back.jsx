@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import BackContext from './BackContext';
 import CatsCrud from './Cats/Crud';
+import ComCrud from './Com/Crud';
 import Nav from './Nav';
 import ProductsCrud from './Products/Crud';
 import { v4 as uuidv4 } from 'uuid';
@@ -25,6 +26,8 @@ function Back({ show }) {
   const [editProduct, setEditProduct] = useState(null);
   const [modalProduct, setModalProduct] = useState(null);
 
+  const [comments, setComments] = useState(null);
+  const [deleteCom, setDeleteCom] = useState(null);
 
   // Read cat
 
@@ -39,6 +42,11 @@ function Back({ show }) {
   useEffect(() => {
     axios.get('http://localhost:3003/admin/products')
       .then(res => setProducts(res.data));
+  }, [lastUpdate]);
+  // Read comments
+  useEffect(() => {
+    axios.get('http://localhost:3003/admin/comments')
+      .then(res => setComments(res.data));
   }, [lastUpdate]);
 
   // Create cat
@@ -97,6 +105,19 @@ function Back({ show }) {
       })
   }, [deleteProduct]);
 
+  // Delete com
+  useEffect(() => {
+    if (null === deleteCom) return;
+    axios.delete('http://localhost:3003/admin/comments/' + deleteCom.id)
+      .then(res => {
+        showMessage(res.data.msg);
+        setLastUpdate(Date.now());
+      })
+      .catch(error => {
+        showMessage({ text: error.message, type: 'danger' });
+      })
+  }, [deleteCom]);
+
   // Edit cat  
   useEffect(() => {
     if (null === editCat) return;   /* editCat – is virsau. Tai viena kategorija, kurioje yra id ir title */
@@ -149,7 +170,9 @@ function Back({ show }) {
       setDeleteProduct,
       setEditProduct,
       setModalProduct,
-      modalProduct /* atvaizduos modala */
+      modalProduct, /* atvaizduos modala */
+      setDeleteCom,
+      comments
     }}>
       {
         show === 'admin' ?
@@ -161,8 +184,9 @@ function Back({ show }) {
               </div>
             </div>
           </>
-          : show === 'cats' ? <CatsCrud /> :
-            show === 'products' ? <ProductsCrud /> : null
+          : show === 'cats' ? <CatsCrud />
+            : show === 'com' ? <ComCrud /> :
+              show === 'products' ? <ProductsCrud /> : null
       }
     </BackContext.Provider>
   )

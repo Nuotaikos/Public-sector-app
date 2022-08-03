@@ -25,7 +25,9 @@ function Line({ line }) {
           <b>{line.title}</b>
           <div className="cat">{line.cat}</div>
           <b>{line.municipalities}</b>
+
         </div>
+
         <div className="comments">
           <h5>Comments</h5>
           <ul className="list-group">

@@ -12,7 +12,7 @@ function Line({ line }) {       //Paimam line ir returne is line atspausdinam ti
   const handleEdit = () => {
     setModalProduct(line); /* paspaudus mygtuka edit, setmodal data pakeis state i kazka */
   }
-
+  console.log(line)
   return (
     <li className="list-group-item">
       <div className="item">
@@ -23,7 +23,7 @@ function Line({ line }) {       //Paimam line ir returne is line atspausdinam ti
         </div>
         <div className="content">
           <b>{line.title}</b>
-          <b>{line.municipalities}</b>
+          <span>{line.cat}</span>
         </div>
         <div className="buttons">
           <button type="button" className="btn btn-outline-success ml-2" onClick={handleEdit}>Edit</button>
