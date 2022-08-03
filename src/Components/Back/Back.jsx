@@ -155,7 +155,11 @@ function Back({ show }) {
         show === 'admin' ?
           <>
             <Nav />
-            <h1>BACK</h1>
+            <div className="card mt-4">
+              <div className="card-header">
+                <h2>Admin page/BACK </h2>
+              </div>
+            </div>
           </>
           : show === 'cats' ? <CatsCrud /> :
             show === 'products' ? <ProductsCrud /> : null
