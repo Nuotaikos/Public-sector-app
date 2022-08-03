@@ -3,14 +3,14 @@ import BackContext from '../BackContext';
 
 function Line({ line }) {       //Paimam line ir returne is line atspausdinam title, price ir t.t.
 
-  const { setDeleteProduct } = useContext(BackContext);
+  const { setDeleteProduct, setModalProduct } = useContext(BackContext);
 
   const handleDelete = () => {  /* veiks paspaudus mygtuka po irasymo i serveri */
     setDeleteProduct(line);
   }
 
   const handleEdit = () => {
-    // setModalCat(line); /* mygtukas, kuris iskviecia modala */
+    setModalProduct(line); /* paspaudus mygtuka edit, setmodal data pakeis state i kazka */
   }
 
   return (

@@ -22,7 +22,8 @@ function Back({ show }) {
   const [products, setProducts] = useState(null);
   const [createProduct, setCreateProduct] = useState(null);
   const [deleteProduct, setDeleteProduct] = useState(null);
-
+  const [editProduct, setEditProduct] = useState(null);
+  const [modalProduct, setModalProduct] = useState(null);
 
 
   // Read cat
@@ -96,7 +97,7 @@ function Back({ show }) {
       })
   }, [deleteProduct]);
 
-  // Edit info 
+  // Edit cat  
   useEffect(() => {
     if (null === editCat) return;   /* editCat – is virsau. Tai viena kategorija, kurioje yra id ir title */
 
@@ -110,6 +111,18 @@ function Back({ show }) {
       })
   }, [editCat]);
 
+  // Edit sectors
+  useEffect(() => {
+    if (null === editProduct) return;
+    axios.put('http://localhost:3003/admin/products/' + editProduct.id, editProduct)
+      .then(res => {
+        showMessage(res.data.msg);
+        setLastUpdate(Date.now());
+      })
+      .catch(error => {
+        showMessage({ text: error.message, type: 'danger' });
+      })
+  }, [editProduct]);
 
   const showMessage = (m) => {
     const id = uuidv4();
@@ -133,7 +146,10 @@ function Back({ show }) {
       modalCat,  /* atvaizduos modala */
       setCreateProduct,
       products,
-      setDeleteProduct
+      setDeleteProduct,
+      setEditProduct,
+      setModalProduct,
+      modalProduct /* atvaizduos modala */
     }}>
       {
         show === 'admin' ?
